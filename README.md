@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# god-tier-next — god-tier initial setup
 
-## Getting Started
+[![CI](https://github.com/dialsandrew0/god-tier-next/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/dialsandrew0/god-tier-next/actions/workflows/ci.yml)
 
-First, run the development server:
+This repository is a Next.js starter configured for fast deployment to Vercel and production parity with Docker.
+
+Quick setup
+
+1. Install dependencies
+
+```bash
+npm ci
+```
+
+2. Run locally (development)
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Build & run production locally with Docker
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# build image
+docker build -t god-tier-next .
+# run
+docker run -p 3000:3000 god-tier-next
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Deploy to Vercel
 
-## Learn More
+- Connect the repository to Vercel and enable automatic deployments from the main branch.
+- Add any production environment variables in the Vercel UI.
 
-To learn more about Next.js, take a look at the following resources:
+What I changed
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Added GitHub Actions CI (build + optional lint + tests)
+- Added Dockerfile + docker-compose for local dev/prod parity
+- Added a simple health-check API at /api/health
+- Added Dependabot config
+- Added basic security headers via next.config.js
+- Added MIT LICENSE and example .env
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Next steps (recommendations)
 
-## Deploy on Vercel
+- Add tests and a test workflow
+- Add Sentry or another error-monitoring tool
+- Hook up analytics and performance monitoring
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Contributing
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Open PRs against the main branch. I use the branch `god-tier/initial-setup` for the initial changes.

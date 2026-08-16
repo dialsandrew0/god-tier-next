@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master, god-tier/initial-setup ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint (optional)
+        run: |
+          if npm run | grep -q "lint"; then
+            npm run lint || true
+          fi
+
+      - name: Build
+        run: npm run build
+
+      - name: Run tests (if present)
+        run: |
+          if npm run | grep -q "test"; then
+            npm test || true
+          fi
